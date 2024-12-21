@@ -1,3 +1,4 @@
+import { envs } from "./config";
 import { Server } from "./presentation/server";
 
 
@@ -11,6 +12,6 @@ async function main() {
     
     //todo: inicio de nuestro server
     new Server({
-
+        port: envs.PORT,
     }).start();
 }
