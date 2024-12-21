@@ -19,6 +19,9 @@ export class Server {
     }
 
     async start() {
+        //middleware
+        this.app.use( express.json() );
+        this.app.use( express.urlencoded({ extended: true }) ); //para que pueda recibir datos de formularios - x-www-form-urlencoded
         
         //usar las definiciones de rutas
         this.app.use( this.routes );
