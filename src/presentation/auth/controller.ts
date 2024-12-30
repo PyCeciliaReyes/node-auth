@@ -1,5 +1,6 @@
 import { Response, Request, NextFunction } from "express"
 import { AuthRepository, CustomError, RegisterUserDto } from "../../domain";
+import { JwtAdapter } from "../../config";
 
 
 export class AuthController {
@@ -26,8 +27,11 @@ export class AuthController {
       
         this.authRepository
           .register(registerUserDto!)
-          .then((user) => {
-            res.json(user);
+          .then( async (user) => { 
+            res.json({
+              user,
+              token: await JwtAdapter.generateToken({email: user.email})
+            })
           })
           .catch( error => this.handleError( error, res));  // Delegamos el manejo de errores inesperados al middleware de Express
       };
